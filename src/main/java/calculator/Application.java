@@ -5,7 +5,8 @@ public class Application {
         // 입력만 받는다 (계산/출력은 이후에)
         String input = InputView.readExpression();
 
-        // TODO: 빈 입력이면 0을 반환하는 계산기 호출
-        // TODO: 계산 결과를 출력
+        int result = new StringAddCalculator().add(input); // 빈/공백 입력 시 0
+
+        // TODO: 7. 결과를 화면에 출력
     }
 }
