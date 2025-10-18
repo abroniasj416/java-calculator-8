@@ -18,11 +18,22 @@ public class StringAddCalculator {
         int sum = 0;
         for (String t : tokens) {
             if (t.isEmpty()) continue; // 임시 정책
-            int n = Integer.parseInt(t); // 아직 검증 X
+
+            // 숫자 형태 검증
+            if (!t.chars().allMatch(Character::isDigit)) {
+                throw new IllegalArgumentException("숫자만 입력 가능합니다.");
+            }
+
+            int n = Integer.parseInt(t);
+
+            // 음수 금지
+            if (n < 0) {
+                throw new IllegalArgumentException("음수는 허용되지 않습니다.");
+            }
+
             sum += n;
         }
 
-        // TODO: 숫자 형태 검증 및 음수 금지
         // TODO: 공백 트리밍 및 빈 토큰 정책 정리
         return sum;
     }
