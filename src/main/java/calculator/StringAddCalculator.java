@@ -9,19 +9,21 @@ public class StringAddCalculator {
             return 0;
         }
 
-        // 기본 구분자로 분리
-        String[] tokens = input.split(DEFAULT_DELIM_REGEX, -1);
+        // 커스텀 구분자 파싱
+        DelimiterParser.Parsed parsed = DelimiterParser.parse(input, DEFAULT_DELIM_REGEX);
+
+        // 커스텀 + 기본 구분자 모두 반영해 분리
+        String[] tokens = parsed.numbers.split(parsed.delimRegex, -1);
 
         int sum = 0;
         for (String t : tokens) {
-            if (t.isEmpty()) continue; // 임시 정책 (8단계에서 정리)
-            int n = Integer.parseInt(t); // 아직 검증 X (6단계에서 추가)
+            if (t.isEmpty()) continue; // 임시 정책
+            int n = Integer.parseInt(t); // 아직 검증 X
             sum += n;
         }
 
-        // TODO: 5. 커스텀 구분자 //...\n 지원
-        // TODO: 6. 숫자/음수 검증
-        // TODO: 8. 공백 트리밍 및 빈 토큰 정책 정리
+        // TODO: 숫자 형태 검증 및 음수 금지
+        // TODO: 공백 트리밍 및 빈 토큰 정책 정리
         return sum;
     }
 }
