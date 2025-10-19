@@ -2,11 +2,17 @@ package calculator;
 
 import camp.nextstep.edu.missionutils.Console;
 
-final class InputView {
-    private InputView() { }
+public class InputView {
 
-    static String readExpression() {
+    public static String readInput() {
         System.out.println("덧셈할 문자열을 입력해 주세요.");
-        return Console.readLine();
+        String input = Console.readLine();
+
+        // 커스텀 구분자 형식이면 한 줄 더 읽어서 합침
+        if (input.startsWith("//")) {
+            String numbers = Console.readLine();
+            input = input + "\n" + numbers;
+        }
+        return input;
     }
 }

@@ -1,9 +1,8 @@
 package calculator;
 
-final class OutputView {
-    private OutputView() { }
+public class OutputView {
 
-    static void printResult(int value) {
-        System.out.println("결과 : " + value);
+    public static void printResult(int result) {
+        System.out.println("결과 : " + result);
     }
 }
