@@ -1,15 +1,20 @@
 package calculator;
 
+import camp.nextstep.edu.missionutils.Console;
+
 public class Application {
     public static void main(String[] args) {
-        // 입력만 받는다 (계산/출력은 이후에)
-        String input = InputView.readExpression();
+        System.out.println("덧셈할 문자열을 입력해 주세요.");
 
-        int result = new StringAddCalculator().add(input);
+        String input = Console.readLine();
+        // 커스텀 구분자 형식이면 한 줄 더 읽어서 합침
+        if (input.startsWith("//")) {
+            String numbers = Console.readLine();
+            input = input + "\n" + numbers;
+        }
 
-        // 결과 출력
-        OutputView.printResult(result);
-
-        // TODO: 공백/빈 토큰 정책 리팩터링 반영 후 최종 안정화
+        StringAddCalculator calculator = new StringAddCalculator();
+        int result = calculator.add(input);
+        System.out.println("결과 : " + result);
     }
 }

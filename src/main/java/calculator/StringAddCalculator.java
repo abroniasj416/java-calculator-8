@@ -9,22 +9,24 @@ public class StringAddCalculator {
             return 0;
         }
 
-        // 커스텀 구분자 파싱
-        DelimiterParser.Parsed parsed = DelimiterParser.parse(input, DEFAULT_DELIM_REGEX);
+        // 선행/후행 공백 제거
+        String trimmed = input.trim();
 
-        // 커스텀 + 기본 구분자 모두 반영해 분리
+        // 커스텀 구분자 파싱(정규식 이스케이프 포함)
+        DelimiterParser.Parsed parsed = DelimiterParser.parse(trimmed, DEFAULT_DELIM_REGEX);
         String[] tokens = parsed.numbers.split(parsed.delimRegex, -1);
 
         int sum = 0;
-        for (String t : tokens) {
-            if (t.isEmpty()) continue; // 임시 정책
+        for (String tokenRaw : tokens) {
+            String token = tokenRaw.trim();
+            if (token.isEmpty()) continue; // 최종 정책: 빈 토큰 무시
 
             // 숫자 형태 검증
-            if (!t.chars().allMatch(Character::isDigit)) {
+            if (!token.chars().allMatch(Character::isDigit)) {
                 throw new IllegalArgumentException("숫자만 입력 가능합니다.");
             }
 
-            int n = Integer.parseInt(t);
+            int n = Integer.parseInt(token);
 
             // 음수 금지
             if (n < 0) {
@@ -34,7 +36,6 @@ public class StringAddCalculator {
             sum += n;
         }
 
-        // TODO: 공백 트리밍 및 빈 토큰 정책 정리
         return sum;
     }
 }
